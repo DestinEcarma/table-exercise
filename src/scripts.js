@@ -12,17 +12,61 @@ const list = document.getElementById("list");
 
 const people = JSON.parse(localStorage.getItem("people") ?? "[]");
 
+let onEdit = false;
+let editIndex = -1;
+
 function render(person) {
 	const row = document.createElement("tr");
 
+	setRow(row, person);
+
+	list.appendChild(row);
+}
+
+function setRow(row, person) {
 	row.innerHTML = `
 		<td>${person.firstName}</td>
 		<td>${person.lastName}</td>
 		<td>${person.emailAddress}</td>
 		<td>${person.contactNumber}</td>
+		<td>
+			<div class="flex gap-4 justify-center">
+				<button class="edit hover:drop-shadow-glow transition">
+					<span class="material-symbols-rounded">edit</span>
+				</button>
+				<button class="delete hover:drop-shadow-glow transition">
+					<span class="material-symbols-rounded">delete</span>
+				</button>
+			</div>
+		</td>
 	`;
 
-	list.appendChild(row);
+	row.querySelector(".edit").addEventListener("click", () => {
+		onEdit = true;
+		editIndex = people.indexOf(person);
+
+		firstName.value = person.firstName;
+		lastName.value = person.lastName;
+		emailAddress.value = person.emailAddress;
+		contactNumber.value = person.contactNumber;
+
+		addRowModal.dataset.active = "true";
+	});
+
+	row.querySelector(".delete").addEventListener("click", () => {
+		deletePerson(people.indexOf(person));
+	});
+}
+
+function closeModalFunc() {
+	addRowModal.dataset.active = "false";
+
+	firstName.value = "";
+	lastName.value = "";
+	emailAddress.value = "";
+	contactNumber.value = "";
+
+	onEdit = false;
 }
 
 function addPerson() {
@@ -33,8 +77,6 @@ function addPerson() {
 		contactNumber: contactNumber.value,
 	};
 
-	console.log(person);
-
 	people.push(person);
 	render(person);
 
@@ -42,14 +84,9 @@ function addPerson() {
 }
 
 function updatePerson(index, person) {
-	const row = list.children[index];
+	if (index < 0) return;
 
-	row.innerHTML = `
-		<td>${person.firstName}</td>
-		<td>${person.lastName}</td>
-		<td>${person.emailAddress}</td>
-		<td>${person.contactNumber}</td>
-	`;
+	setRow(list.children[index], person);
 
 	people[index] = person;
 
@@ -57,8 +94,9 @@ function updatePerson(index, person) {
 }
 
 function deletePerson(index) {
-	list.children[index].remove();
+	if (index < 0) return;
 
+	list.children[index].remove();
 	people.splice(index, 1);
 
 	localStorage.setItem("people", JSON.stringify(people));
@@ -69,20 +107,24 @@ addRow.addEventListener("click", () => {
 });
 
 closeModal.addEventListener("click", () => {
-	addRowModal.dataset.active = "false";
+	closeModalFunc();
 });
 
 addRowForm.addEventListener("submit", (e) => {
 	e.preventDefault();
 
-	addPerson();
+	if (!onEdit) {
+		addPerson();
+	} else {
+		updatePerson(editIndex, {
+			firstName: firstName.value,
+			lastName: lastName.value,
+			emailAddress: emailAddress.value,
+			contactNumber: contactNumber.value,
+		});
+	}
 
-	firstName.value = "";
-	lastName.value = "";
-	emailAddress.value = "";
-	contactNumber.value = "";
-
-	addRowModal.dataset.active = "false";
+	closeModalFunc();
 });
 
 for (const person of people) {
