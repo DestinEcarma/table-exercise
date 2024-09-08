@@ -48,7 +48,7 @@
 	}
 
 	.input-field input {
-		@apply bg-primary-800 w-full rounded-md border border-white/10 px-4 py-2 text-white ring-primary transition hover:drop-shadow-glow focus:ring;
+		@apply w-full rounded-md border border-white/10 bg-primary-800 px-4 py-2 text-white ring-primary transition hover:drop-shadow-glow focus:ring;
 	}
 
 	.screen {
