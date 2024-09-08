@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	* {
+		scrollbar-gutter: stable;
+	}
+
+	button,
+	input {
+		@apply outline-none;
+	}
+
+	th,
+	tr:not(:last-child) > td {
+		@apply border-b border-b-white/10;
+	}
+
+	th,
+	td {
+		@apply px-4 py-2;
+	}
+
+	td:last-child,
+	td:nth-last-child(2) {
+		@apply text-center;
+	}
+}
+
+@layer components {
+	.material-symbols-rounded {
+		font-variation-settings:
+			"FILL" 0,
+			"wght" 400,
+			"GRAD" 0,
+			"opsz" 24;
+	}
+
+	.input-field {
+		@apply flex w-full flex-col gap-2;
+	}
+
+	.input-field label {
+		@apply text-sm;
+	}
+
+	.input-field input {
+		@apply bg-primary-800 w-full rounded-md border border-white/10 px-4 py-2 text-white ring-primary transition hover:drop-shadow-glow focus:ring;
+	}
+
+	.screen {
+		@apply px-[12%] py-2;
+	}
+
+	@media (max-width: 1500px) {
+		.screen {
+			@apply px-[7%];
+		}
+	}
+
+	@media (max-width: 1000px) {
+		.screen {
+			@apply px-[10px] py-[20px];
+		}
+	}
+}

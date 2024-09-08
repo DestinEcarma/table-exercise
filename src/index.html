@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Table Exercise</title>
+		<link rel="stylesheet" href="styles.css" />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+		/>
+		<script src="scripts.js" defer></script>
+	</head>
+	<body class="flex h-dvh flex-col bg-default font-jetbrains text-primary">
+		<div
+			id="add-row-modal"
+			data-active="false"
+			class="absolute flex h-dvh w-dvw items-center justify-center bg-black/20 px-8 backdrop-blur-md transition-opacity data-[active='false']:pointer-events-none data-[active='false']:opacity-0 data-[active='true']:opacity-100"
+		>
+			<form
+				id="add-row-form"
+				class="bg-primary-800 relative flex w-full max-w-[500px] flex-col gap-4 rounded-md px-4 py-8"
+			>
+				<button
+					id="close-modal"
+					type="button"
+					class="absolute right-0 top-0 flex h-8 w-8 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-primary ring-primary transition hover:drop-shadow-glow focus:ring"
+				>
+					<span class="material-symbols-rounded font-bold text-secondary">close</span>
+				</button>
+				<div class="flex gap-2 max-[450px]:flex-col max-[450px]:gap-4">
+					<div class="input-field">
+						<label for="first-name">First Name</label>
+						<input id="first-name" type="text" required />
+					</div>
+					<div class="input-field">
+						<label for="last-name">Last Name</label>
+						<input id="last-name" type="text" required />
+					</div>
+				</div>
+				<div class="flex gap-2 max-[450px]:flex-col max-[450px]:gap-4">
+					<div class="input-field">
+						<label for="email-address">Email Address</label>
+						<input id="email-address" type="email" required />
+					</div>
+					<div class="input-field">
+						<label for="contact-number">Contact Number</label>
+						<input id="contact-number" type="tel" required />
+					</div>
+				</div>
+				<button
+					type="submit"
+					class="w-full rounded-md bg-primary py-2 font-extrabold text-secondary ring-primary transition hover:drop-shadow-glow focus:ring"
+				>
+					Submit
+				</button>
+			</form>
+		</div>
+		<div class="screen flex justify-between border-b border-b-white/10">
+			<h1 class="text-2xl font-bold">Table Exercise</h1>
+			<button
+				id="add-row"
+				class="p-y1 rounded-md border border-white/10 px-4 ring-primary transition hover:bg-primary hover:text-secondary hover:drop-shadow-glow focus:ring"
+			>
+				Add
+			</button>
+		</div>
+		<div class="screen flex h-full overflow-hidden py-8">
+			<div class="flex-grow overflow-y-auto">
+				<table class="w-full border-separate border-spacing-0">
+					<thead>
+						<tr>
+							<th class="bor sticky top-0 bg-default">Last Name</th>
+							<th class="bor sticky top-0 bg-default">First Name</th>
+							<th class="bor sticky top-0 bg-default">Email Address</th>
+							<th class="bor sticky top-0 bg-default">Contact Number</th>
+							<th class="bor sticky top-0 bg-default">Actions</th>
+						</tr>
+					</thead>
+					<tbody id="list"></tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
